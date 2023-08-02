@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{% load static %}
+{% comment %} {% load custom_tags %} {% endcomment %}
+<html>
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>PASSWORD MANAGER | {% block title %}  {% endblock title %}</title>
+	<meta name="description" content="Password Manager" />
+	{% comment %} <meta name="author" content="hencework"/> {% endcomment %}
+
+    {% include 'partials/links.html' %}
+</head>
+
+<body>
+	{% include 'partials/preloader.html' %}
+
+    <div class="wrapper theme-1-active pimary-color-green">
+		{% include 'partials/top-menu.html' %}
+		
+		{% include 'partials/sidebar.html' %}
+		
+		{% include 'partials/left-sidebar.html' %}
+
+
+		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h5 class="modal-title" id="myLargeModalLabel">My Profile</h5>
+                    </div>
+                    <div class="modal-body">
+                        {% comment %} <h5 class="mb-15">Overflowing text to show scroll behavior</h5>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p> {% endcomment %}
+						<div  class="pills-struct">
+							<ul role="tablist" class="nav nav-pills" id="myTabs_9">
+								<li class="active" role="presentation"><a aria-expanded="true"  data-toggle="tab" role="tab" id="general_tab" href="#general"><i class="zmdi zmdi-account"></i></a></li>
+								<li role="presentation" class=""><a  data-toggle="tab" id="security_tab" role="tab" href="#security" aria-expanded="false"><i class="fa fa-lock"></i></a></li>
+								{% comment %} <li role="settings" class=""><a  data-toggle="tab" id="settings_tab" role="tab" href="#settings" aria-expanded="false"><i class="zmdi zmdi-settings"></i></a></li> {% endcomment %}
+								{% comment %} <li class="dropdown" role="presentation">
+									<a  data-toggle="dropdown" class="dropdown-toggle" id="myTabDrop_9" href="#" aria-expanded="false"><i class="zmdi zmdi-settings"></i> <span class="caret"></span></a>
+									<ul id="myTabDrop_9_contents"  class="dropdown-menu">
+										<li class=""><a  data-toggle="tab" id="dropdown_17_tab" role="tab" href="#dropdown_17" aria-expanded="true">@fat</a></li>
+										<li class=""><a  data-toggle="tab" id="dropdown_18_tab" role="tab" href="#dropdown_18" aria-expanded="false">@mdo</a></li>
+									</ul>
+								</li> {% endcomment %}
+							</ul>
+							<div class="tab-content" id="myTabContent_9">
+								<div  id="general" class="tab-pane fade active in" role="tabpanel">
+									<div class="form-wrap">
+										<div id="alert-place">
+										</div>
+										<form method="POST" hx-target="#alert-place" hx-post="{% url 'edit-profile' %}">
+											{% csrf_token %}
+											<div class="form-group">
+												<label class="control-label mb-10" for="exampleInputuname_1">Username</label>
+												<div class="input-group">
+													<div class="input-group-addon"><i class="icon-user"></i></div>
+													<input name="username" type="text" class="form-control" id="username" placeholder="Username" value="{{ user.username }}" required>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label mb-10" for="exampleInputEmail_1">Email address</label>
+												<div class="input-group">
+													<div class="input-group-addon"><i class="icon-envelope-open"></i></div>
+													<input name="email" type="email" class="form-control" id="email" placeholder="Enter email" value="{{ user.email }}" required>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label mb-10" for="exampleInputuname_1">First Name</label>
+												<div class="input-group">
+													<div class="input-group-addon"><i class="icon-user"></i></div>
+													<input name="first_name" type="text" class="form-control" id="fname" placeholder="First name" value="{{ user.first_name }}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label mb-10" for="exampleInputEmail_1">Last name</label>
+												<div class="input-group">
+													<div class="input-group-addon"><i class="icon-user"></i></div>
+													<input name="last_name" type="text" class="form-control" id="lname" placeholder="Last name" value="{{ user.last_name }}">
+												</div>
+											</div>
+											{% comment %} <div class="form-group">
+												<label class="control-label mb-10" for="exampleInputpwd_1">Password</label>
+												<div class="input-group">
+													<div class="input-group-addon"><i class="icon-lock"></i></div>
+													<input type="password" class="form-control" id="exampleInputpwd_1" placeholder="Enter email">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="control-label mb-10" for="exampleInputpwd_2">Confirm Password</label>
+												<div class="input-group">
+													<div class="input-group-addon"><i class="icon-lock"></i></div>
+													<input type="password" class="form-control" id="exampleInputpwd_2" placeholder="Enter email">
+												</div>
+											</div> {% endcomment %}
+											<button type="submit" class="btn btn-success mr-10">Save details</button>
+										</form>
+									</div>
+									{% comment %} <p>Lorem ipsum dolor sit amet, et pertinax ocurreret scribentur sit, eum euripidis assentior ei. In qui quodsi maiorum, dicta clita duo ut. Fugit sonet quo te. Ad vel quando causae signiferumque. Aperiam luptatum senserit eu vis, eu ius purto torquatos vituperatoribus.An nec fastidii eligendi molestiae.</p> {% endcomment %}
+								</div>
+								<div  id="security" class="tab-pane fade" role="tabpanel">
+									<div id="alert2-place">
+									</div>
+									<form method="POST" hx-target="#alert2-place" hx-post="{% url 'edit-password' %}">
+										{% csrf_token %}
+										<div class="form-group">
+											<label class="control-label mb-10" for="exampleInputpwd_1">Current Password</label>
+											<div class="input-group">
+												<div class="input-group-addon"><i class="icon-lock"></i></div>
+												<input name="cpassword" type="password" class="form-control" id="cpassword" placeholder="Enter current password" required>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label mb-10" for="exampleInputpwd_1">New Password</label>
+											<div class="input-group">
+												<div class="input-group-addon"><i class="icon-lock"></i></div>
+												<input name="npassword" type="password" class="form-control" id="npassword" placeholder="Enter new password" required>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label mb-10" for="exampleInputpwd_2">Confirm Password</label>
+											<div class="input-group">
+												<div class="input-group-addon"><i class="icon-lock"></i></div>
+												<input name="npassword2" type="password" class="form-control" id="npassword2" placeholder="Confirm new password" required>
+											</div>
+										</div>
+										<button type="submit" class="btn btn-success mr-10">Change Password</button>
+									</form>
+								</div>
+								{% comment %} <div  id="settings" class="tab-pane fade" role="tabpanel">
+									<div id="alert2-place">
+									</div>
+									<form method="POST" hx-target="#alert2-place" hx-post="{% url 'edit-password' %}">
+										{% csrf_token %}
+										<br>	
+										<div class="checkbox checkbox-primary">
+											<input name="share_passwords" id="checkbox" type="checkbox">
+											<label for="checkbox"> Use password sharing feature</label>
+										</div>
+										<br>
+										<p style="font-weight: bold;">Password expires after:</p>
+										<div class="row">
+											<div class="col-md-2">
+												<div class="form-group">
+													<input name="expire_number" type="number" min="0" class="form-control">
+												</div>
+											</div>
+											<!--/span-->
+											<div class="col-md-4">
+												<div class="form-group">
+													<select name="expire_period" class="form-control">
+														<option value="1"></option>
+														<option value="2">DAYS</option>
+														<option value="3">MONTHS</option>
+														<option value="4">YEARS</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<button type="submit" class="btn btn-success mr-10">Save settings</button>
+									</form>
+								</div> {% endcomment %}
+								{% comment %} <div id="dropdown_17" class="tab-pane fade " role="tabpanel">
+									<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+								</div>
+								<div id="dropdown_18" class="tab-pane fade" role="tabpanel">
+									<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater.</p>
+								</div> {% endcomment %}
+							</div>
+						</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger text-left" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+		<!--DELETE PASSWORD MODAL-->
+		<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h5 id="modal-title" class="modal-title"></h5>
+					</div>
+					<div class="modal-body">
+						<form id="delete-form" method="POST">
+							{% csrf_token %}
+							Are you sure you want to remove this password?
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button form="delete-form" type="submit" class="btn btn-danger">Yes, Delete</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--DELETE PASSWORD MODAL-->
+
+        {% block content %}  {% endblock content %}
+
+		{% comment %} {% include 'partials/footer.html' %} {% endcomment %}
+
+    </div>
+    <!-- /#wrapper -->
+	
+	{% include 'partials/scripts.html' %}
+
+	{% block custom-scripts %}  
+
+	{% endblock custom-scripts %}
+
+</body>
+
+</html>
