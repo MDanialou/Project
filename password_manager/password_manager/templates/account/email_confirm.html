@@ -1,0 +1,81 @@
+
+{% extends 'account/auth-layout.html' %}
+{% load static %}
+
+{% load account %}
+
+
+{% block title %}
+    CONFIRM YOUR EMAIL ADDRESS
+{% endblock title %}
+    
+
+
+{% block content %}    
+
+    <div class="wrapper pa-0">
+        <header class="sp-header">
+            <div class="sp-logo-wrap pull-left">
+                <a href="">
+                    <img class="brand-img mr-10" src="{% static 'dist/img/logo.png' %}" alt="brand"/>
+                    <span class="brand-text notranslate">Manager</span>
+                </a>
+            </div>
+            <div class="form-group mb-0 pull-right">
+                <span class="inline-block pr-10">Don't have an account?</span>
+                <a class="inline-block btn btn-info btn-success btn-rounded btn-outline" href="{% url 'account_signup' %}">Sign Up</a>
+            </div>
+            <div class="form-group mb-0 pull-right">
+                <span class="inline-block pr-10">You  have an account?</span>
+                <a class="inline-block btn btn-info btn-success btn-rounded btn-outline" href="{% url 'account_login' %}">Sign In</a>
+            </div>
+            <div class="clearfix"></div>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="page-wrapper pa-0 ma-0 auth-page">
+            <div class="container-fluid">
+                <!-- Row -->
+                <div class="table-struct full-width full-height">
+                    <div class="table-cell vertical-align-middle auth-form-wrap">
+                        <div class="auth-form  ml-auto mr-auto no-float">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="mb-30">
+                                        <h3 class="text-center txt-dark mb-10">Confirm Your E-mail Address</h3>
+                                        {% if confirmation %}
+
+                                            {% user_display confirmation.email_address.user as user_display %}
+
+                                            <h6>Please confirm that <a href="mailto:{{ confirmation.email_address.email }}">{{ email }}</a> is an e-mail address for user {{ user_display }}.</h6>
+
+                                            <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                                            {% csrf_token %}
+                                            <div class="form-group text-center">
+                                                <button type="submit" class="btn btn-info btn-success btn-rounded">Confirm</button>
+                                            </div>
+                                            </form>
+
+                                        {% else %}
+
+                                            {% url 'account_email' as email_url %}
+
+                                            <div class="form-group text-center">
+                                                <p>This e-mail confirmation link expired or is invalid. <a href="{{ email_url }}"><button type="button" class="btn btn-info btn-success btn-rounded">issue a new e-mail confirmation request</button></a>.</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>	
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Row -->	
+            </div>
+            
+        </div>
+        <!-- /Main Content -->
+
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,122 @@
+
+{% extends 'registration/auth-layout.html' %}
+{% load static %}
+
+
+
+{% block title %}
+    SIGN UP
+{% endblock title %}
+    
+
+
+{% block content %}    
+
+<div class="wrapper pa-0">
+    <header class="sp-header">
+        <div class="sp-logo-wrap pull-left">
+            <a href="">
+                <img class="brand-img mr-10" src="{% static 'dist/img/logo.png' %}" alt="brand"/>
+                <span class="brand-text notranslate">Manager</span>
+            </a>
+        </div>
+        <div class="form-group mb-0 pull-right">
+            <span class="inline-block pr-10">Already have an account?</span>
+            <a class="inline-block btn btn-info btn-success btn-rounded btn-outline" href="{% url 'account_login' %}">Sign In</a>
+        </div>
+        <div class="clearfix"></div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="page-wrapper pa-0 ma-0 auth-page">
+        <div class="container-fluid">
+            <!-- Row -->
+            <div class="table-struct full-width full-height">
+                <div class="table-cell vertical-align-middle auth-form-wrap">
+                    <div class="auth-form  ml-auto mr-auto no-float">
+                        <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                                <div class="mb-30">
+                                    <h3 class="text-center txt-dark mb-10">Sign up to Password Manager</h3>
+                                    <h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
+                                </div>	
+                                <div class="form-wrap">
+                                    <form class="login-form" method="POST">
+                                        {% csrf_token %}
+
+                                        <div class="form-group">
+                                            <label class="control-label mb-10">Email Address <span class="text-danger">*</span></label>
+                                            {{form.email}}
+                                            {% if form.email.errors %}
+                                                {% for error in form.email.errors %}
+                                                    <div class="text-danger">
+                                                        {{ error|escape }}
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label mb-10">Username <span class="text-danger">*</span></label>
+                                            {{form.username}}
+                                            {% if form.username.errors %}
+                                                {% for error in form.username.errors %}
+                                                    <div class="text-danger">
+                                                        {{ error|escape }}
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label mb-10">Enter Password <span class="text-danger">*</span></label>
+                                            {{form.password1}}
+                                            {% if form.password1.errors %}
+                                                {% for error in form.password1.errors %}
+                                                    <div class="text-danger">
+                                                        {{ error|escape }}
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label mb-10">Confirm Password <span class="text-danger">*</span></label>
+                                            {{form.password2}}
+                                            {% if form.password2.errors %}
+                                                {% for error in form.password2.errors %}
+                                                    <div class="text-danger">
+                                                        {{ error|escape }}
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+
+                                        {% if form.non_field_errors %} 
+                                            {% for error in form.non_field_errors %}
+                                            <div class="text-danger" style="font-size: 12px; font-style: italic;">
+                                                {{ error|escape }}
+                                            </p>
+                                            {% endfor %} 
+                                        {% endif %}
+                                        
+                                        <div class="form-group text-center">
+                                            <button type="submit" class="btn btn-info btn-success btn-rounded">sign Up</button>
+                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>	
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Row -->	
+        </div>
+        
+    </div>
+    <!-- /Main Content -->
+
+</div>
+
+{% endblock content %}

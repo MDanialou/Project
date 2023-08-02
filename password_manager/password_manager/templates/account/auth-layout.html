@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>PASSWORD MANAGER | {% block title %} {% endblock title %}</title>
+		
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+		<link rel="icon" href="{% static 'favicon.ico'} %" type="image/x-icon">
+		
+		<!-- vector map CSS -->
+		<link href="{% static 'vendors/bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+		
+		
+		
+		<!-- Custom CSS -->
+		<link href="{% static 'dist/css/style.css' %}" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<!--Preloader-->
+		<div class="preloader-it">
+			<div class="la-anim-1"></div>
+		</div>
+		<!--/Preloader-->
+
+		<div class="gtranslate_wrapper"></div>
+		<script>window.gtranslateSettings = {"default_language":"en","detect_browser_language":true,"languages":["en","fr"],"wrapper_selector":".gtranslate_wrapper","switcher_horizontal_position":"right","float_switcher_open_direction":"bottom","flag_style":"3d"}</script>
+		<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+		
+
+        
+        {% block content %}
+            
+        {% endblock content %}
+		<!-- /#wrapper -->
+		
+		<!-- JavaScript -->
+		
+		<!-- jQuery -->
+		<script src="{% static 'vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'vendors/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js' %}"></script>
+		
+		<!-- Slimscroll JavaScript -->
+		<script src="{% static 'dist/js/jquery.slimscroll.js' %}"></script>
+		
+		<!-- Init JavaScript -->
+		<script src="{% static 'dist/js/init.js' %}"></script>
+
+		{% block custom-scripts %}  
+
+		{% endblock custom-scripts %}
+	</body>
+</html>
