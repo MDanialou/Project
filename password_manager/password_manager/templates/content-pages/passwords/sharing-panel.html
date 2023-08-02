@@ -1,0 +1,141 @@
+ 
+{% extends 'base-layout/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    SHARING PANEL
+{% endblock title %}
+
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="page-wrapper">
+        <div class="container-fluid">
+            <!-- Title -->
+            <div class="row heading-bg">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                  <h5 class="txt-dark">Sharing Panel</h5>
+                </div>
+                <!-- Breadcrumb -->
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                  <ol class="breadcrumb">
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    {% comment %} <li><a href="#"><span>table</span></a></li> {% endcomment %}
+                    <li class="active"><span>Sharing Panel</span></li>
+                  </ol>
+                </div>
+                <!-- /Breadcrumb -->
+            </div>
+            <!-- /Title -->
+            <div class="col-md-12">
+                {% include 'partials/messages.html' %}
+            </div>
+            
+            <!-- Row -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="panel panel-default card-view">
+                        {% comment %} <div class="panel-heading">
+                            <div class="pull-right">
+                                <button onclick="window.location.href='{% url 'add-password' %}'" class="btn btn-success btn-anim"><i class="icon-plus"></i><span class="btn-text">Add New Password</span></button>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <br> {% endcomment %}
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="table-wrap">
+                                    <div class="table-responsive">
+                                        <table id="datable_1" class="table table-hover display  pb-30" >
+                                            <thead>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Password</th>
+                                                    <th>Tenant</th>
+                                                    <th class="text-center">Share Valid until</th>
+                                                    <th class="text-center">Authorized by me</th>
+                                                    <th class="text-center">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>N°</th>
+                                                    <th>Password</th>
+                                                    <th>Tenant</th>
+                                                    <th class="text-center">Share Valid until</th>
+                                                    <th class="text-center">Authorized by me</th>
+                                                    <th class="text-center">Actions</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                
+                                                {% for p in shares %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td class="notranslate">{{ p.password }}</td>
+                                                        <td>{{ p.tenant.username }} | {{ p.tenant.email }}</td>
+                                                        <td class="text-center">
+                                                            {% if p.valid_until %}
+                                                                {{ p.valid_until }}
+                                                            {% else %}    
+                                                                <span class="label label-info">Undefined</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {% if p.owner_authorize %}
+                                                                <span class="label label-success">Yes</span>
+                                                            {% else %}    
+                                                                <span class="label label-danger">No</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {% if p.owner_authorize == False %}
+                                                                <a href="{% url 'sharing-state' pk=p.pk %}">
+                                                                    <button class="btn btn-success btn-outline btn-icon right-icon"><span>Authorize</span> <i class="fa fa-check"></i> </button>
+                                                                </a>
+                                                            {% else %} 
+                                                                <a href="{% url 'sharing-state' pk=p.pk %}">   
+                                                                    <button type="button" class="btn btn-danger btn-lable-wrap left-label"> <span class="btn-label"><i class="fa fa-exclamation-triangle"></i> </span><span class="btn-text">Revoke</span></button>
+                                                                </a>
+                                                            {% endif %}
+                                                            <a href="{% url 'sharing-delete' pk=p.pk %}">
+                                                                <button class="btn btn-danger btn-outline btn-icon right-icon"><span>Delete</span> <i class="fa fa-times"></i> </button>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                    
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>	
+                </div>
+            </div>
+            <!-- /Row -->
+        </div>
+
+        {% include 'partials/footer.html' %}
+
+    </div>
+    <!-- /Main Content -->
+{% endblock content %}
+
+
+
+{% block custom-scripts %}
+    <script>
+        function setDelete(el){
+            password_id = el.getAttribute('data-id')
+            name = el.getAttribute('data-name')
+            document.getElementById('modal-title').innerText = "Delete " + name + " password ?"
+
+            document.getElementById('delete-form').action = "{% url 'delete-password' pk=12345 %}".replace('12345', password_id);
+        }
+    </script>
+{% endblock custom-scripts %}
+    
