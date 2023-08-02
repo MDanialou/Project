@@ -1,0 +1,95 @@
+
+{% extends 'account/auth-layout.html' %}
+{% load static %}
+
+{% load account %}
+
+{% block title %}
+    Two-Factor Authentication Backup Tokens
+{% endblock title %}
+    
+
+
+{% block content %}    
+
+    <div class="wrapper pa-0">
+        <header class="sp-header">
+            <div class="sp-logo-wrap pull-left">
+                <a href="">
+                    <img class="brand-img mr-10" src="{% static 'dist/img/logo.png' %}" alt="brand"/>
+                    <span class="brand-text notranslate">Manager</span>
+                </a>
+            </div>
+            <div class="form-group mb-0 pull-right">
+                {% comment %} <span class="inline-block pr-10">Retour vers le tableau de bord</span> {% endcomment %}
+                <a class="inline-block btn btn-info btn-success btn-rounded btn-outline" href="{% url 'dashboard' %}">Return to Dashboard</a>
+            </div>
+            <div class="clearfix"></div>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="page-wrapper pa-0 ma-0 auth-page">
+            <div class="container-fluid">
+                <!-- Row -->
+                <div class="table-struct full-width full-height">
+                    <div class="table-cell vertical-align-middle auth-form-wrap">
+                        <div class="auth-form  ml-auto mr-auto no-float">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% include 'partials/messages.html' %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="mb-30">
+                                        <h3 class="text-center txt-dark mb-10">Two-Factor Authentication Backup Tokens</h3>
+                                        {% comment %} <h6 class="text-center nonecase-font txt-grey">Enter your details below</h6> {% endcomment %}
+                                    </div>
+                                    <hr>
+                                    <div class="mb-30 text-center">
+                                        {% if backup_tokens %}
+                                        {% if reveal_tokens %}
+                                            <ul class="list-group">
+                                            {% for token in backup_tokens %}
+                                                <li class="list-group-item"> <strong>{{ token.token }}</strong> </li>
+                                            {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            Backup tokens have been generated, but are not revealed here for security reasons. Press the button below to generate new ones.
+                                        {% endif %}
+                                        {% else %}
+                                            No tokens. Press the button below to generate some
+                                        {% endif %}
+                                    </div>
+                                    <div class="mb-30 text-center">
+                                        <div class="form-wrap">
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <div class="form-group text-center">
+                                                    <button type="submit" class="btn btn-info btn-success btn-rounded">Generate backup tokens</button>
+                                                </div>
+                                                <a class="capitalize-font txt-primary block mb-10 pull-right font-12" href="{% url 'two-factor-remove' %}">Disable Two Factor ?</a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    {% comment %} <hr> {% endcomment %}
+                                </div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Row -->	
+            </div>
+            
+        </div>
+        <!-- /Main Content -->
+
+    </div>
+
+{% endblock content %}
+
+{% block custom-scripts %}  
+    <script>
+       document.getElementById('id_token').classList.add('form-control');
+    </script>
+{% endblock custom-scripts %}
