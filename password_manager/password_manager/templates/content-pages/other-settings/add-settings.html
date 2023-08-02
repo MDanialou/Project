@@ -1,0 +1,106 @@
+ 
+{% extends 'base-layout/base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+    OTHER SETTINGS
+{% endblock title %}
+
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="page-wrapper">
+        <div class="container-fluid">
+				
+            <!-- Title -->
+            <div class="row heading-bg">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                  <h5 class="txt-dark">Other settings</h5>
+                </div>
+                <!-- Breadcrumb -->
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                  <ol class="breadcrumb">
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    {% comment %} <li><a href="{% url 'passwords' %}"><span>Passwords</span></a></li> {% endcomment %}
+                    <li class="active"><span>Other settings</span></li>
+                  </ol>
+                </div>
+                <!-- /Breadcrumb -->
+            </div>
+            <!-- /Title -->
+            <div class="col-md-12">
+                {% include 'partials/messages.html' %}
+            </div>
+            
+            <!-- Row -->
+            <div class="row">
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default card-view">
+                        <div class="panel-heading">
+                            <div class="pull-right">
+                                {% comment %} <h6 class="panel-title txt-dark">data Table</h6> {% endcomment %}
+                                {% comment %} <button onclick="window.location.href='{% url 'add-password' %}'" class="btn btn-success btn-anim"><i class="icon-plus"></i><span class="btn-text">Add New Password</span></button> {% endcomment %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <br>
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body">
+                                <div class="form-wrap">
+                                    <div id="alert3-place">
+									</div>
+                                    <form method="POST" hx-target="#alert3-place" hx-post="{% url 'other-settings' %}">
+										{% csrf_token %}
+										<br>	
+										<div class="checkbox checkbox-primary">
+											<input name="share_passwords" id="checkbox" type="checkbox" {% if settings and settings.share_passwords %} checked {% endif %}>
+											<label for="checkbox"> Use password sharing feature</label>
+										</div>
+										<br>
+										<p style="font-weight: bold;">Password expires after:</p>
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<input name="expire_number" type="text" min="1" class="form-control" value="{{ settings.expire_number }}" required>
+												</div>
+											</div>
+											<div class="col-md-8">
+												<div class="form-group">
+													<select name="expire_period" class="form-control" required>
+														<option {% if settings and settings.expire_period == 1 %} selected {% endif %} value="1">--Select an option--</option>
+														<option {% if settings and settings.expire_period == 2 %} selected {% endif %} value="2">DAYS</option>
+														<option {% if settings and settings.expire_period == 3 %} selected {% endif %} value="3">MONTHS</option>
+														<option {% if settings and settings.expire_period == 4 %} selected {% endif %} value="4">YEARS</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<button type="submit" class="btn btn-success mr-10">Save settings</button>
+									</form>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>	
+                </div>
+            </div>
+            <!-- /Row -->
+            {% include 'partials/footer.html' %}
+        </div>
+
+        
+    </div>
+    <!-- /Main Content -->
+{% endblock content %}
+
+
+
+{% block custom-scripts %}
+    <script>
+    </script>
+{% endblock custom-scripts %}
+    
